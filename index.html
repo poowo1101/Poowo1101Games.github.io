@@ -113,10 +113,28 @@
             animation: pulse 2s infinite;
         }
 
+        .event-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff4444, #ff6666);
+            color: #fff;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-left: 10px;
+            animation: pulse-red 1.5s infinite;
+        }
+
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
+        }
+
+        @keyframes pulse-red {
+            0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 68, 68, 0.5); }
+            50% { transform: scale(1.08); box-shadow: 0 0 20px rgba(255, 68, 68, 0.8); }
+            100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 68, 68, 0.5); }
         }
 
         .game-description {
@@ -138,6 +156,40 @@
 
         .coming-soon:hover {
             transform: none !important;
+        }
+
+        .event-card {
+            background: rgba(255, 68, 68, 0.15);
+            border: 2px solid rgba(255, 68, 68, 0.5);
+        }
+
+        .event-card:hover {
+            background: rgba(255, 68, 68, 0.25);
+        }
+
+        .instructions {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 4px solid #ff4444;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            text-align: left;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+            color: #f0f0f0;
+        }
+
+        .counter {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #ffd93d;
+            margin-top: 10px;
         }
 
         /* Footer */
@@ -179,8 +231,31 @@
 
         <!-- Games Grid -->
         <div class="games-grid">
+            <!-- ANTI DAVID Event -->
+            <div class="game-card event-card" onclick="window.location.href='anti-david.html'">
+                <div class="game-icon">⚡</div>
+                <div class="game-title">
+                    ANTI DAVID
+                    <span class="event-badge">АКТУАЛЬНО!</span>
+                </div>
+                <div class="game-description">
+                    Культ "Давида" в TikTok дуже розповсюдився. Давайте почнемо війну проти цього культу!
+                </div>
+                
+                <div class="instructions">
+                    <strong>Як приєднатися:</strong>
+                    <ol>
+                        <li>Поставте це фото зліва в профіль</li>
+                        <li>Додайте в свій нік "POOWO-ANTI-DAVID"</li>
+                    </ol>
+                </div>
+                
+                <div class="counter">Учасників вже: <span id="participantCount">1</span></div>
+                <div style="color: #ff6b6b; margin-top: 10px;">🎯 Приєднатися до руху!</div>
+            </div>
+
             <!-- Sirbus 2 -->
-            <div class="game-card" onclick="window.location.href='games/Sirbus/sirbus2.html'">
+            <div class="game-card" onclick="window.location.href='Sirbus/sirbus2.html'">
                 <div class="game-icon">🐱</div>
                 <div class="game-title">
                     Sirbus 2
@@ -210,16 +285,6 @@
                     Міжгалактична подорож через невідомі сектори космосу.
                 </div>
                 <div class="game-status">В розробці</div>
-            </div>
-
-            <!-- Нова гра 2 -->
-            <div class="game-card coming-soon">
-                <div class="game-icon">⚔️</div>
-                <div class="game-title">Dragon's Legacy</div>
-                <div class="game-description">
-                    Епічна RPG у фентезійному світі магії та драконів.
-                </div>
-                <div class="game-status">На етапі планування</div>
             </div>
         </div>
 
@@ -255,12 +320,19 @@
             }
         }
 
+        // Лічильник учасників (можна збільшувати вручну)
+        let participantCount = 1;
+        
         // Анімація для клікабельних карток
         document.querySelectorAll('.game-card:not(.coming-soon)').forEach(card => {
             card.addEventListener('click', function() {
                 this.style.transform = 'scale(0.95)';
                 setTimeout(() => {
-                    window.location.href = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+                    if (this.querySelector('.event-badge')) {
+                        window.location.href = 'anti-david.html';
+                    } else {
+                        window.location.href = 'Sirbus/sirbus2.html';
+                    }
                 }, 200);
             });
         });
